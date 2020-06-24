@@ -1,0 +1,10 @@
+CREATE TABLE SpotenuUsers (
+	id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    nickname VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL
+);
+ALTER TABLE SpotenuUsers ADD COLUMN description TEXT;
+ALTER TABLE SpotenuUsers ADD COLUMN status TINYINT;
