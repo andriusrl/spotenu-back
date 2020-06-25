@@ -2,8 +2,12 @@
 import express from "express";
 import {AddressInfo} from "net";
 import { userRouter } from "./router/UserRouter";
-import { genreRouter } from "./router/GenreRouter"
+import { genreRouter } from "./router/GenreRouter";
+import cors from "cors";
+
 const app = express();
+
+app.use(cors())
 
 app.use(express.json());
 

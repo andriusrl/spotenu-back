@@ -4,7 +4,7 @@ import { UserType } from "../model/User";
 dotenv.config();
 
 export class TokenGenerator {
-  private static expiresIn: string = "369636m";
+  private static expiresIn: string = process.env.EXPIRES_IN as string;
 
   public generate = (input: AuthenticationData): string => {
     const newToken = jwt.sign(
@@ -17,7 +17,7 @@ export class TokenGenerator {
         expiresIn: TokenGenerator.expiresIn,
       }
     );
-    console.log(this.verify(newToken))
+    // console.log(this.verify(newToken))
     return newToken;
   };
 

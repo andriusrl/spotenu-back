@@ -173,9 +173,7 @@ export class UserBusiness {
     if (!band) {
       throw new GenericError("Essa banda não existe")
     } else if (band.getStatus() !== true) {
-      // console.log(band.getStatus())
       const result = await this.userDatabase.setStatus(status, email)
-      // console.log(result)
       return result
     } else {
       throw new GenericError("Essa banda já está aprovada")
