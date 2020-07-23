@@ -16,7 +16,7 @@ export class GenreDatabase extends BaseDataBase {
   }
 
   public async createGenre(genre: Genre): Promise<void> {
-    await super.getConnection().raw(`
+    const result = await super.getConnection().raw(`
         INSERT INTO ${this.tableName} (id, name)
         VALUES (
           '${genre.getId()}',
