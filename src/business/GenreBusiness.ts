@@ -33,4 +33,9 @@ export class GenreBusiness {
       new Genre(id, name)
     );
   }
+
+  public async getAllGenres() {
+    const result = await this.genreDatabase.getGenres()
+    return result
+  }
 }
