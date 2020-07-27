@@ -16,11 +16,19 @@ export class GenreDatabase extends BaseDataBase {
   }
 
   public async createGenre(genre: Genre): Promise<void> {
-    await super.getConnection().raw(`
+    const result = await super.getConnection().raw(`
         INSERT INTO ${this.tableName} (id, name)
         VALUES (
           '${genre.getId()}',
           '${genre.getName()}'
         )`);
+  }
+
+  public async getGenres(): Promise<void> {
+    const result = await super.getConnection().raw(`
+        SELECT * FROM ${this.tableName};
+    `)
+
+    return result[0]
   }
 }

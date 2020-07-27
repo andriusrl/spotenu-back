@@ -28,12 +28,13 @@ export class UserController {
 
   async signupAdmin(req: Request, res: Response) {
     try {
+      // console.log((req.headers.Authorization || req.headers.authorization))
       const result = await UserController.UserBusiness.signupAdmin(
         req.body.name,
         req.body.email,
         req.body.nickname,
         req.body.password,
-        req.headers.authorization as string
+        (req.headers.Authorization || req.headers.authorization) as string
       );
       res.status(200).send({message: `Usuário ${req.body.name} cadastrado como admin`});
     } catch (err) {
@@ -69,7 +70,7 @@ export class UserController {
 
   public async getAllBands(req: Request, res: Response) {
     try {
-      const result = await UserController.UserBusiness.getAllBands(req.headers.authorization as string)
+      const result = await UserController.UserBusiness.getAllBands((req.headers.Authorization || req.headers.authorization) as string)
 
       res.status(200).send(result)
     } catch (err) {
@@ -79,7 +80,7 @@ export class UserController {
 
   public async aproveBand(req: Request, res: Response) {
     try {
-      const result = await UserController.UserBusiness.aproveBand(req.headers.authorization as string, true, req.body.email)
+      const result = await UserController.UserBusiness.aproveBand((req.headers.Authorization || req.headers.authorization) as string, true, req.body.email)
 
       res.status(200).send({message: "Banda aprovada com sucesso"})
     } catch(err) {

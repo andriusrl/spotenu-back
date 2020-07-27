@@ -29,9 +29,13 @@ export class GenreBusiness {
     }
 
     const id = this.idGenerator.generate();
-
     await this.genreDatabase.createGenre(
       new Genre(id, name)
     );
+  }
+
+  public async getAllGenres() {
+    const result = await this.genreDatabase.getGenres()
+    return result
   }
 }

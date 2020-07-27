@@ -51,37 +51,36 @@ export class UserBusiness {
     email: string,
     nickname: string,
     password: string,
-    authorization: string
+    Authorization: string
   ) {
-
-    if (this.tokenGenerator.verify(authorization).type !== UserType.ADMIN) {
+    console.log("Teste1")
+    if (this.tokenGenerator.verify(Authorization).type !== UserType.ADMIN) {
       throw new GenericError("Você não é um usuário administrador")
     }
-
+    console.log("Teste2")
     if (!name || !email || !nickname || !password) {
+      console.log(name)
+      console.log(email)
+      console.log(nickname)
+      console.log(password)
+      console.log("2.5")
       throw new InvalidParameterError("Missing input");
     }
-
+    console.log("Teste3")
     if (email.indexOf("@") === -1) {
       throw new InvalidParameterError("Invalid email");
     }
-
+    console.log("Teste4")
     if (password.length < 10) {
       throw new InvalidParameterError("Invalid password");
     }
-
+    console.log("quase la")
     const id = this.idGenerator.generate();
     const cryptedPassword = await this.hashGenerator.hash(password);
-
+    console.log("finaol")
     await this.userDatabase.createUser(
       new User(id, name, email, nickname, cryptedPassword, UserType.ADMIN)
     );
-
-    const accessToken = this.tokenGenerator.generate({
-      id,
-      type: UserType.ADMIN
-    });
-    return { accessToken };
   }
 
   public async signupBand(
@@ -149,8 +148,8 @@ export class UserBusiness {
     return { accessToken };
   }
 
-  public async getAllBands(authorization: string) {
-    if (this.tokenGenerator.verify(authorization).type !== UserType.ADMIN) {
+  public async getAllBands(Authorization: string) {
+    if (this.tokenGenerator.verify(Authorization).type !== UserType.ADMIN) {
       throw new GenericError("Você não é um usuário administrador")
     }
     const result = await this.userDatabase.getUsers(UserType.BAND)
@@ -165,8 +164,8 @@ export class UserBusiness {
     return resultMap
   }
 
-  public async aproveBand(authorization: string, status: boolean, email) {
-    if (this.tokenGenerator.verify(authorization).type !== UserType.ADMIN) {
+  public async aproveBand(Authorization: string, status: boolean, email) {
+    if (this.tokenGenerator.verify(Authorization).type !== UserType.ADMIN) {
       throw new GenericError("Você não é um usuário administrador")
     }
     const band = await this.userDatabase.getUserByEmailOrNickname(email)
